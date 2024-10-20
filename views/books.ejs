@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Reviews</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Book Reviews</h1>
+
+  <form action="/books/add" method="POST">
+    <input type="text" name="title" placeholder="Title" required>
+    <input type="text" name="author" placeholder="Author" required>
+    <input type="number" name="rating" placeholder="Rating (1-5)" required min="1" max="5">
+    <textarea name="review" placeholder="Your review"></textarea>
+    <input type="date" name="date_read" required>
+    <input type="text" name="cover_url" placeholder="Cover URL">
+    <button type="submit">Add Book</button>
+  </form>
+
+  <ul>
+    <% books.forEach(book => { %>
+      <li>
+        <img src="<%= book.cover_url %>" alt="<%= book.title %> cover" width="100">
+        <h3><%= book.title %></h3>
+        <p>Author: <%= book.author %></p>
+        <p>Rating: <%= book.rating %></p>
+        <p>Read on: <%= book.date_read %></p>
+        <p>Review: <%= book.review %></p>
+        <form action="/books/update/<%= book.id %>" method="POST">
+          <!-- Update fields here -->
+        </form>
+        <form action="/books/delete/<%= book.id %>" method="POST">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>
